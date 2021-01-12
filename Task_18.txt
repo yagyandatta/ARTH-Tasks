@@ -1,0 +1,72 @@
+Step 1 :- Create EC2 instance on AWS
+
+Step 2 :- Configure the instance with Apache Webserver
+
+Step 3 :- Create Database on AWS (RDS)
+
+Step 4 :- Download php application name "WordPress"
+
+Step 5 :- As wordpress stores data at the backend in MySQL Database server. Therefore, you need to setup a MySQL server using AWS RDS service using Free Tier
+
+Step 5 :- Provide the endpoint/connection string to theWordPress application to make it work.
+
+
+-------------------------------------------------------------------------------------
+                       --> implementation <--
+-------------------------------------------------------------------------------------
+
+!! To run WordPress requirements are:-
+  # PHP version 7.4 or greater. 
+  # MySQL version 5.6 or greater OR MariaDB version 10.1 or greater.
+
+!! My EC2 configuration
+  # AMI           :- Amazon Linux 2 AMI
+  # Instance Type :- t2.micro
+  # Storage       :- 8GiB
+  # Security Group:- all traffic
+
+
+Run the following commands in EC2 instance to install all required softwares:
+-----------------------------------------------------------------------------
+--> yum install -y httpd mysql php-mysqlnd php-json php-fpm wget vim
+--> yum install amazon-linux-extras install php7.4  -y 
+
+
+
+Download the wordpress code and Extract to /var/www/html:
+---------------------------------------------------------
+--> wget https://wordpress.org/latest.tar.gz
+--> tar -xvzf latest.tar.gz -C /var/www/html
+
+
+Login to RDS database:
+----------------------
+--> mysql -h <endpoint_url> -u <userName> -p
+
+>> create database wordpressdb;
+>> exit;
+
+
+
+Start and enable web services:
+------------------------------
+--> systemctl start httpd
+--> systemctl enable httpd
+
+
+Wordpress Configuration on Web
+------------------------------
+--> On chrome type your IP with wordpress path (e.g- 192.168.43.102/wordpress)
+--> Give name of the database created
+--> give the master username given while creating RDS database instance
+--> respective password
+--> endpoint URL of the RDS database instance
+
+
+wp-config.php Configuration on cli
+----------------------------------
+--> create a file inside wordpress as wp-config.php manually
+--> copy all code from wp-sample-config.php and paste inside wp-config.php
+--> save it and you are ready to install wordpress app.
+
+
