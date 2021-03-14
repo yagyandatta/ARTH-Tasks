@@ -1,0 +1,58 @@
+
+                                            #################################### TASK-7.2 ###########################################
+
+
+
+1. Launch the Instance on VM //
+2. Log-in to your instance with your user-id and password //
+	>> sudo su -
+
+3. Update the installed packages and package cache on your instance //
+	>> yum update -y
+
+4. Install the most recent Docker Community Edition package //
+	>> amazon-linux-extras install docker
+	OR
+	>> yum install docker
+
+5. Start the Docker service //
+	>> systemctl start docker
+
+6. Pull The Image //
+	>> docker pull centos:7
+
+7. Launch the conainer ///
+	>> docker run -it --name webserver -p 8080:80 centos:7
+
+
+
+
+8. Install APACHE Webserver in the new container //
+	>> yum install httpd
+
+
+9. Configuring The Webserver By Copying Webpages into /var/www/html folder //
+	cd /var/www/html
+	>> vi index.html
+		<body bgcolor = "blue">
+		<h1>Welcome To The Webpage</h1>
+		</body>
+
+10. Start the webserver service(In docker we can't use systemctl command) //
+	>> /usr/sbin/httpd
+
+11. Make webserver service permanant
+	>> vi /root/.bashrc
+	    rm -rf /var/run/httpd/* 
+	    /usr/sbin/httpd
+
+12. Use Public IP to access webpage by requesting host's port 8080
+	http://13.235.81.213:8080
+
+
+
+
+
+
+
+
